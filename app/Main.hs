@@ -1,6 +1,6 @@
 module Main where
 
-import Mandelbrot
+import Mandelbrot.Algorithms.EscapeTime
 
 main :: IO ()
 main = interact id

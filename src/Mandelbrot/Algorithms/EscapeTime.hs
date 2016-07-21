@@ -1,4 +1,4 @@
-module Mandelbrot (numIterations) where
+module Mandelbrot.Algorithms.EscapeTime (numIterations) where
 
 import Data.Complex
 

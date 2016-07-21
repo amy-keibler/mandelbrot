@@ -1,9 +1,9 @@
-module MandelbrotSpec (main, spec) where
+module Mandelbrot.Algorithms.EscapeTimeSpec (main, spec) where
 
 import Test.Hspec
 import Test.QuickCheck
 
-import Mandelbrot (numIterations)
+import Mandelbrot.Algorithms.EscapeTime (numIterations)
 import Data.Complex
 
 main :: IO ()
