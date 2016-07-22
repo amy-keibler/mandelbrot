@@ -1,7 +1,6 @@
 module MandelbrotSpec (main, spec) where
 
 import Test.Hspec
-import Test.QuickCheck
 
 import Mandelbrot (generateComplexRange)
 import Data.Complex
