@@ -1,4 +1,5 @@
-module Mandelbrot.Algorithms.EscapeTime (numIterations) where
+module Mandelbrot.Algorithms.EscapeTime (numIterations
+                                        , maxIterations) where
 
 import Data.Complex
 
@@ -9,11 +10,12 @@ radius :: RealFloat a => a
 radius = 3
 
 numIterations :: RealFloat a => Complex a -> Int
-numIterations c = length $ take maxIterations $ takeWhile (lessThanRadius radius) $ zSeries c
+numIterations = length . take maxIterations . takeWhile lessThanRadius . zSeries
 
-lessThanRadius :: (Floating a, Ord a) => a -> Complex a -> Bool
-lessThanRadius r z = realPart z ^ (2 :: Integer) + imagPart z ^ (2 :: Integer) < r ^ (2 :: Integer)
+lessThanRadius :: (RealFloat a, Ord a) => Complex a -> Bool
+lessThanRadius z = (square . realPart) z + (square . imagPart) z < square radius
+  where square = (** 2)
 
 zSeries :: RealFloat a => Complex a -> [Complex a]
-zSeries c = iterate nextZ (0 :+ 0)
-  where nextZ z = z ^ (2 :: Integer) + c
+zSeries c = iterate nextZ c
+  where nextZ z = (z ^ (2 :: Integer)) + c
