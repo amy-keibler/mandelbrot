@@ -40,4 +40,3 @@ script:
                --install-ghc   `# Download GHC if not in cache.`\
                --no-terminal   `# Terminal detection is broken.`\
                --pedantic      `# Enable -Wall and -Werror.    `
-    done
