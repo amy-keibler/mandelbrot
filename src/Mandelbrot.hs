@@ -13,8 +13,8 @@ import Data.Complex
 
 import Mandelbrot.Coloring
 
-data Resolution = Resolution { x :: Int
-                             , y :: Int
+data Resolution = Resolution { xRes :: Int
+                             , yRes :: Int
                              } deriving (Generic, Show)
 
 instance FromJSON Resolution
@@ -46,8 +46,9 @@ uncurry3 func (x, y, z) = func x y z
 toCoordinate :: ImageData -> Int -> Int -> Complex Double
 toCoordinate image xCoord yCoord = (xStart image :+ yStart image) + ((fromIntegral xCoord * xDiff image) :+ (fromIntegral yCoord * yDiff image))
 
-generateComplexRange :: (RealFloat a, Enum a) => a -> a -> Complex a -> a -> a -> [Complex a]
-generateComplexRange xRes yRes corner xDiff yDiff= [corner + offset x y |
-                                                    x <- [1..xRes],
-                                                    y <- [1..yRes]]
-  where offset x y = ((x-1) * xDiff) :+ (y-1) * yDiff
+generateComplexRange :: ImageData -> [Complex Double]
+generateComplexRange imageData = [corner + offset x y |
+                                  x <- [1 .. (xRes $ resolution imageData)],
+                                  y <- [1 .. (yRes $ resolution imageData)]]
+  where corner = xStart imageData :+ yStart imageData
+        offset x y = ((fromIntegral x - 1) * xDiff imageData) :+ (fromIntegral y-1) * yDiff imageData
