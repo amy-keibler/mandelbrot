@@ -1,0 +1,12 @@
+{
+    "filename": "/tmp/default.png",
+    "coloring": "diverse",
+    "xStart": -2.5,
+    "yStart": -2,
+    "resolution": {
+        "x": 1000,
+        "y": 800
+    },
+    "xDiff": 0.005,
+    "yDiff": 0.005
+}

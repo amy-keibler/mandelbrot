@@ -1,7 +1,8 @@
 module Mandelbrot.Coloring (diverseColoring
                            , greenColoring
                            , grayColoring
-                           , maxDepth) where
+                           , maxDepth
+                           , Coloring) where
 
 import Data.Word
 

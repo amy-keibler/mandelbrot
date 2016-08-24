@@ -14,6 +14,10 @@ spec = do
   describe "diverseColoring" $ do
     it "should produce a zero value for zero input" $
       diverseColoring 0 `shouldBe` (0, 0, 0)
+    it "should produce values that are *8, *16, and *32" $ property
+      (\x -> diverseColoring x `shouldBe` (fromInteger $ toInteger x * 8 `mod` (maxDepth :: Integer),
+                                           fromInteger $ toInteger x * 16 `mod` maxDepth,
+                                           fromInteger $ toInteger x * 32 `mod` maxDepth))
     it "should wrap all numbers to the range [0, 256)" $ property
       (inRange . diverseColoring)
   describe "greenColoring" $ do

@@ -1,16 +1,25 @@
 module Main where
 
+import Mandelbrot
 import Mandelbrot.Coloring
 import Mandelbrot.Algorithms.EscapeTime (numIterations)
 
-import Data.Complex
+import Data.Aeson
 import Codec.Picture
+import System.Environment (getArgs)
+
+import qualified Data.ByteString.Lazy as B
 
 main :: IO ()
-main = writePng "/tmp/test.png" $ generateMandelbrotImage ((-2.5) :+ (-2)) 1000 800 0.005 0.005
+main = getArgs >>= handleFileName
+  where handleFileName [filepath] = eitherDecode <$> B.readFile filepath >>= outputImage
+        handleFileName _ = putStrLn "Please pass in the filename of the json config file."
 
-generateMandelbrotImage :: (RealFloat a) => Complex a -> Int -> Int -> a -> a -> Image PixelRGB8
-generateMandelbrotImage corner xRes yRes xDiff yDiff = generateImage pixelRenderer xRes yRes
-    where pixelRenderer x y = (toPixel . diverseColoring . numIterations) $ toCoordinate x y
-          toCoordinate x y = corner + ((fromIntegral x * xDiff) :+ (fromIntegral y * yDiff))
-          toPixel (r, g, b) = PixelRGB8 r g b
+outputImage :: Either String ImageData -> IO ()
+outputImage (Left err) = putStrLn err
+outputImage (Right image) = writePng (filename image) $ generateMandelbrotImage image
+
+generateMandelbrotImage :: ImageData -> Image PixelRGB8
+generateMandelbrotImage image = generateImage pixelRenderer (x $ resolution image) (y $ resolution image)
+    where pixelRenderer xCoord yCoord = (toPixel . coloringFrom (coloring image) . numIterations) $ toCoordinate image xCoord yCoord
+          toPixel = uncurry3 PixelRGB8
