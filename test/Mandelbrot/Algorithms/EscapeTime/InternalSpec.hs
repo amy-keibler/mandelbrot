@@ -22,7 +22,7 @@ spec = do
     it "should produce the next element in the list by squaring and adding c" $ property
       zSeriesInduction
 
-pythagoreanLT :: (Ord a, RealFloat a) => a -> a -> Bool
+pythagoreanLT :: (RealFloat a) => a -> a -> Bool
 pythagoreanLT x y = sqrt (x ** 2 + y ** 2) < radius
 
 zSeriesInduction :: Complex Double -> Int -> Bool

@@ -1,7 +1,6 @@
 module Main where
 
 import Mandelbrot
-import Mandelbrot.Coloring
 import Mandelbrot.Algorithms.EscapeTime (numIterations)
 
 import Data.Aeson
@@ -20,6 +19,6 @@ outputImage (Left err) = putStrLn err
 outputImage (Right image) = writePng (filename image) $ generateMandelbrotImage image
 
 generateMandelbrotImage :: ImageData -> Image PixelRGB8
-generateMandelbrotImage image = generateImage pixelRenderer (x $ resolution image) (y $ resolution image)
+generateMandelbrotImage image = generateImage pixelRenderer (xRes $ resolution image) (yRes $ resolution image)
     where pixelRenderer xCoord yCoord = (toPixel . coloringFrom (coloring image) . numIterations) $ toCoordinate image xCoord yCoord
           toPixel = uncurry3 PixelRGB8
