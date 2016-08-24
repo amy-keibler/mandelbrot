@@ -36,18 +36,8 @@ script:
     if [ "${CURRENT}" != "YES" ]; then
         SET_RESOLVER="--resolver ${RESOLVER}"
     fi
-    for exercise in ${TRAVIS_BUILD_DIR}/exercises/* ; do
-        pushd ${exercise}
-        # `stack --work-dir` fails if not targeting a subdirectory, so we just
-        # symbolic-link `.stack-work` to a subfolder in the cache directory.
-        mkdir -p "${HOME}/.foldercache/${exercise}/.stack-work"
-        ln -f -s "${HOME}/.foldercache/${exercise}/.stack-work"
-        # Here we prepare the exercise to be tested by Stack.
-        MODULE=`sed -n 's/ *module \+\([a-zA-Z0-9]\+\).*/\1/p' src/Example.hs`
-        mv src/Example.hs "src/${MODULE}.hs"
-        stack test ${SET_RESOLVER} `# Select the correct resolver. `\
-                   --install-ghc   `# Download GHC if not in cache.`\
-                   --no-terminal   `# Terminal detection is broken.`\
-                   --pedantic      `# Enable -Wall and -Werror.    `
-        popd
+    stack test ${SET_RESOLVER} `# Select the correct resolver. `\
+               --install-ghc   `# Download GHC if not in cache.`\
+               --no-terminal   `# Terminal detection is broken.`\
+               --pedantic      `# Enable -Wall and -Werror.    `
     done
