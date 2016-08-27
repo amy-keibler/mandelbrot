@@ -4,8 +4,8 @@
     "xStart": 0.338694,
     "yStart": 0.072486,
     "resolution": {
-        "x": 1024,
-        "y": 768
+        "xRes": 1024,
+        "yRes": 768
     },
     "xDiff": 1.48582e-7,
     "yDiff": 2.018253e-7
