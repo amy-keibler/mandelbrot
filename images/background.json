@@ -1,0 +1,12 @@
+{
+    "filename": "/tmp/background.png",
+    "coloring": "green",
+    "xStart": -3,
+    "yStart": -1.5,
+    "resolution": {
+        "xRes": 2560,
+        "yRes": 1440
+    },
+    "xDiff": 0.0020833333333333333,
+    "yDiff": 0.0020833333333333333
+}
