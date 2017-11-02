@@ -12,7 +12,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   describe "lessThanRadius" $
     it "should determine if the distance is less than the radius" $ property
       (\x y -> lessThanRadius ((x :: Double) :+ y) `shouldBe` pythagoreanLT x y)

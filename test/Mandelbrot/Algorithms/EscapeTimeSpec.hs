@@ -10,7 +10,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = describe "numIterations" $ do
+spec = parallel $ describe "numIterations" $ do
   it "should never converge for 0 :+ 0" $
     numIterations ((0 :: Double) :+ 0) `shouldBe` maxDepth
   it "should immediately converge for (-2.5) :+ (-2)" $
