@@ -10,7 +10,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   describe "generateComplexRange" $ do
     it "should generate an empty list if resolution is zero" $
       generateComplexRange zeroRes `shouldBe` []

@@ -10,7 +10,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   describe "diverseColoring" $ do
     it "should produce a zero value for zero input" $
       diverseColoring 0 `shouldBe` (0, 0, 0)
